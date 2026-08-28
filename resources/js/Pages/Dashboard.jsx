@@ -26,6 +26,9 @@ export default function Dashboard() {
                         </Link>
                         <div className="flex items-center gap-3 sm:gap-4">
                             <span className="hidden text-sm font-medium text-slate-600 sm:inline">{user.name}</span>
+                            <Link href="/profile" className="hidden min-h-11 items-center justify-center rounded-xl bg-slate-100 px-4 text-sm font-semibold transition hover:bg-slate-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213d] md:inline-flex">
+                                Profile Settings
+                            </Link>
                             <button type="button" onClick={logout} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 text-sm font-semibold transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213d]">
                                 Logout
                             </button>
@@ -76,6 +79,9 @@ export default function Dashboard() {
                         <div className="mt-7 flex flex-wrap gap-3">
                             <Link href="/" className="inline-flex min-h-11 items-center justify-center rounded-xl bg-[#14213d] px-5 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213d]">
                                 Back to Home
+                            </Link>
+                            <Link href="/profile" className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 text-sm font-semibold transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213d]">
+                                Profile Settings
                             </Link>
                             <button type="button" onClick={logout} className="inline-flex min-h-11 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 text-sm font-semibold transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#14213d]">
                                 Logout
