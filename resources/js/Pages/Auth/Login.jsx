@@ -1,7 +1,7 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function Login() {
+export default function Login({ flash }) {
     const [showPassword, setShowPassword] = useState(false);
     const { data, setData, post, processing, errors } = useForm({
         email: '',
@@ -81,6 +81,12 @@ export default function Login() {
                                     <h2 className="text-3xl font-semibold tracking-tight text-[#14213d]">Welcome back</h2>
                                     <p className="mt-2 text-sm leading-6 text-slate-500">Sign in to continue your journey.</p>
                                 </div>
+
+                                {flash?.error && (
+                                    <div role="alert" className="mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                                        {flash.error}
+                                    </div>
+                                )}
 
                                 <form onSubmit={submit} className="space-y-5">
                                     <div>
