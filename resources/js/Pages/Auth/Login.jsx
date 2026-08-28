@@ -163,9 +163,8 @@ export default function Login() {
                                     <span className="h-px flex-1 bg-slate-200" />
                                 </div>
 
-                                <button
-                                    type="button"
-                                    onClick={keepPlaceholderInactive}
+                                <a
+                                    href="/auth/google/redirect"
                                     aria-label="Continue with Google (coming soon)"
                                     className="flex min-h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-[#14213d] shadow-sm transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                                 >
@@ -176,7 +175,7 @@ export default function Login() {
                                         G
                                     </span>
                                     Continue with Google
-                                </button>
+                                </a>
 
                                 <p className="mt-8 text-center text-xs leading-5 text-slate-500">
                                     Need help accessing your account?{' '}
