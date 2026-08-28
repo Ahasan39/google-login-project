@@ -55,7 +55,10 @@ class AuthenticationTest extends TestCase
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Dashboard')
-                ->where('auth.user.name', 'Student'));
+                ->where('auth.user.id', $user->id)
+                ->where('auth.user.name', 'Student')
+                ->where('auth.user.email', 'student@example.com')
+                ->where('auth.user.avatar', null));
     }
 
     public function test_user_can_logout_and_can_no_longer_view_dashboard(): void
