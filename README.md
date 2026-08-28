@@ -1,59 +1,166 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Google Login Learning Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A small full-stack authentication project built to learn Laravel's session authentication and Google OAuth without using an authentication starter kit.
 
-## About Laravel
+The application supports email/password login, Google sign-in through Laravel Socialite, a protected dashboard, logout, and authenticated profile/password management.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tech stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel 12.68
+- PHP 8.2+
+- React 19
+- Inertia.js 3
+- Tailwind CSS 4
+- Vite 7
+- MySQL
+- Laravel Socialite 5
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- Manual Laravel session-based email/password authentication
+- Google OAuth redirect and callback flow
+- Safe matching of Google users by Google ID and email
+- Protected dashboard and profile routes
+- Profile name updates with fresh Inertia shared props
+- Password creation for Google-only accounts
+- Password changes with current-password validation
+- Responsive React and Tailwind interfaces
+- Automated authentication, Google OAuth, and profile tests
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+No Breeze, Jetstream, Fortify, Sanctum, JWT, or frontend UI framework is used.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Requirements
 
-## Laravel Sponsors
+- PHP 8.2 or newer
+- Composer
+- Node.js and npm
+- MySQL
+- A Google Cloud OAuth 2.0 Web Client for Google sign-in
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Local installation
 
-### Premium Partners
+1. Clone the repository and enter the project directory:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+   ```bash
+   git clone https://github.com/Ahasan39/google-login-project.git
+   cd google-login-project
+   ```
 
-## Contributing
+2. Install PHP and JavaScript dependencies:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   composer install
+   npm install
+   ```
 
-## Code of Conduct
+3. Create the environment file and application key:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+   On Windows PowerShell, use `Copy-Item .env.example .env` instead of `cp`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Create a MySQL database named `google_login_project`, then configure `.env`:
+
+   ```dotenv
+   APP_URL=http://127.0.0.1:8000
+
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=google_login_project
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+   Set `DB_PASSWORD` to your own local MySQL password. Do not commit credentials.
+
+5. Run the migrations and development seeder:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+6. Start Laravel and Vite in separate terminals:
+
+   ```bash
+   php artisan serve
+   ```
+
+   ```bash
+   npm run dev
+   ```
+
+7. Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+## Development login
+
+Running the database seeder creates or updates this local learning account:
+
+```text
+Email: student@example.com
+Password: password
+```
+
+Do not use these credentials in production.
+
+## Google OAuth configuration
+
+Create an OAuth 2.0 Web Client in Google Cloud and add this authorized redirect URI:
+
+```text
+http://127.0.0.1:8000/auth/google/callback
+```
+
+Then configure the following values only in your local `.env`:
+
+```dotenv
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/auth/google/callback
+```
+
+If the Google consent screen is in testing mode, add the Google account you intend to use as a test user. Never commit the client secret or other OAuth credentials.
+
+## Build and test
+
+Create a production frontend build:
+
+```bash
+npm run build
+```
+
+Run the Laravel test suite:
+
+```bash
+php artisan test
+```
+
+Google OAuth tests mock Socialite and do not contact Google or require real credentials.
+
+## Main routes
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/` | Home page |
+| `GET`, `POST` | `/login` | Login page and email/password authentication |
+| `GET` | `/auth/google/redirect` | Begin Google OAuth |
+| `GET` | `/auth/google/callback` | Complete Google OAuth |
+| `GET` | `/dashboard` | Protected dashboard |
+| `GET`, `PATCH` | `/profile` | View and update the authenticated profile |
+| `PUT` | `/profile/password` | Create or update the authenticated user's password |
+| `POST` | `/logout` | End the authenticated session |
+
+## Security notes
+
+- Google access and refresh tokens are not stored.
+- Google-only users have a nullable password until they intentionally create one.
+- Sessions are regenerated after successful authentication and password changes.
+- OAuth failures show a generic user-facing message and do not expose secrets.
+- The `.env` file is ignored by Git; `.env.example` contains placeholders only.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This learning project is open-sourced under the [MIT License](https://opensource.org/licenses/MIT).
